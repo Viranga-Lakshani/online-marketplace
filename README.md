@@ -1,49 +1,56 @@
-# Online Marketplace 
+# Online Marketplace
 
-Full-stack JavaScript marketplace starter:
-- Frontend: Vite + React
-- Backend: Node.js + Express + TypeScript
-- DB: PostgreSQL + Prisma
-- Auth: Email/password (bcrypt) + JWT
-- Payments: Stripe ready (keys in env), not wired to production flows yet
+A location-based marketplace application using React.
 
-Features included:
-- User registration and login (JWT)
-- User profile model
-- Listing model (create/read)
-- Prisma migrations and seed helper
-- Docker compose for local Postgres + backend
-- Minimal React UI for auth and listings
+## Folder Structure
 
-Quick start (development)
-1. Copy env files:
-   - backend/.env.example -> backend/.env
-   - frontend/.env.example -> frontend/.env
+```bash
+Online-Marketplace/
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── Header.js
+│   │   ├── Footer.js
+│   │   └── ProductCard.js
+│   ├── pages/
+│   │   ├── Home.js
+│   │   ├── Products.js
+│   │   └── Contact.js
+│   ├── App.js
+│   ├── index.js
+│   └── styles/
+│       └── App.css
+└── package.json
+```  
 
-2. Start Postgres (locally or with docker-compose):
-   - docker-compose up -d
+## Google Maps Integration
 
-3. Backend
-   - cd backend
-   - npm install
-   - npx prisma migrate dev --name init
-   - npm run dev
-
-4. Frontend
-   - cd frontend
-   - npm install
-   - npm run dev
-
-Environment variables
-- backend/.env (example)
-  - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/marketplace
-  - JWT_SECRET=change_me
-  - PORT=4000
-  - STRIPE_SECRET_KEY=sk_test_...
-
-- frontend/.env (example)
-  - VITE_API_URL=http://localhost:4000/api
-
-Notes
-- This is a starter. Add validations, rate limiting, password reset, uploads (S3), Stripe Checkout + Connect, admin UI, tests, and CI as next steps.
-- If you want, I can push this repo to GitHub under your account and add CI/workflows.
+1. Install the Google Maps React library:
+   ```bash
+   npm install --save @react-google-maps/api
+   ```
+2. Import the necessary components in your page or component file:
+   ```javascript
+   import { GoogleMap, LoadScript } from '@react-google-maps/api';
+   ```
+3. Use the `GoogleMap` component to display the map:
+   ```javascript
+   const mapContainerStyle = { width: '100%', height: '400px' };
+   const center = { lat: -3.745, lng: -74.351 }; // Provide appropriate latitude and longitude
+   
+   function MyMapComponent() {
+       return (
+           <LoadScript googleMapsApiKey="YOUR_API_KEY">
+               <GoogleMap
+                   mapContainerStyle={mapContainerStyle}
+                   center={center}
+                   zoom={10}
+               >
+                   {/* Additional map components like markers can be added here */}
+               </GoogleMap>
+           </LoadScript>
+       );
+   }
+   ```
+4. Replace `YOUR_API_KEY` with your actual Google Maps API key.
